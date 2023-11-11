@@ -92,7 +92,7 @@ mysql> select * from users; // migration、および、seedの投入を実施し
 +---------+-----------+
 ```
 
-## prism
+## [prism](https://qiita.com/andynuma/items/bf043b5184d3826d0f92)
 ### 開発手順
 swagger.ymlをmockサーバーとして活用できるようになるものです。  
 初期状態として、`users`というAPIの記載例を示していて、swagger.ymlを編集すると、その修正が反映されます  
