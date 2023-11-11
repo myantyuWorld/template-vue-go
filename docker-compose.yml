@@ -10,40 +10,37 @@ services:
     volumes:
       - ./front/vue_app:/app
     tty: true
-  # api:
-  #   build: ./api
-  #   container_name: go-api-container
-  #   ports:
-  #     - '8080:8080'
-  #   volumes:
-  #     - ./api:/go/src/app
-  #   environment:
-  #     - MYSQL_USER=root
-  #     - MYSQL_PASSWORD=hogehoge
-  #     - MYSQL_HOST=db
-  #     - MYSQL_PORT=3306
-  #     - MYSQL_DATABASE=dev
-  #   tty: true
-  # db:
-  #   image: mysql:5.7
-  #   platform: linux/amd64
-  #   restart: always
-  #   volumes:
-  #     - ./db/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
-  #     - ./db/mysql/data:/var/lib/mysql
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: password
-  #     MYSQL_DATABASE: dev
-  #   ports:
-  #     - "3400:3306" # ローカルのMySQLのportと被らないように設定する
-  #   tty: true
-  # #
-  # # Prism Overview | https://docs.stoplight.io/docs/prism/674b27b261c3c-prism-overview
-  # # 
-  # prism:
-  #   image: stoplight/prism:4
-  #   command: 'mock -h 0.0.0.0 /tmp/swagger.yml'
-  #   volumes:
-  #     - ./api/document/swagger/swagger.yml:/tmp/swagger.yml:ro
-  #   ports:
-  #     - '4010:4010'
+  api:
+    build: ./api
+    container_name: go-api-container
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./api:/go/src/app
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MYSQL_HOST=db
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=dev
+    tty: true
+  db:
+    image: mysql:5.7
+    platform: linux/amd64
+    restart: always
+    volumes:
+      - ./db/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: dev
+    ports:
+      - "3400:3306"
+    tty: true
+  prism:
+    image: stoplight/prism:4
+    command: 'mock -h 0.0.0.0 /tmp/swagger.yml'
+    volumes:
+      - ./document/swagger.yml:/tmp/swagger.yml:ro
+    ports:
+      - '4010:4010'

@@ -1,0 +1,247 @@
+openapi: 3.0.3
+info:
+  title: strongest-api-2023
+  version: 1.0.0
+tags:
+  - name: user
+    description: ユーザー情報
+paths:
+  /users:
+    get:
+      tags:
+        - user
+      summary: ユーザー一覧API
+      description: |
+        ユーザーをデフォルトで全件取得して返却します <br>
+        idの昇順。
+      responses:
+        200:
+          $ref: '#/components/responses/GetUsers'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - user
+      summary: ユーザー登録API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  nullable: false
+                nickname:
+                  type: string
+                  nullable: false
+                address:
+                  type: string
+                  nullable: false
+                age:
+                  type: integer
+                  nullable: false
+                birthday:
+                  type: string
+                  format: date
+                  nullable: false
+                trigger:
+                  type: array
+                  example: []
+                question:
+                  type: string
+                  nullable: false
+              required:
+                - name
+                - question
+                - trigger
+      responses:
+        200:
+          $ref: '#/components/responses/GetUser'
+  /users/{userId}:
+    get:
+      tags:
+        - user
+      summary: ユーザー詳細API
+      description: |
+        ユーザー詳細を取得して返却します <br>
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        200:
+          $ref: '#/components/responses/GetUser'
+        400:
+          $ref: '#/components/responses/IllegalInput'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    UserBase:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          type: string
+        birthday:
+          type: string
+          format: date
+          example: "1909-01-01"
+          nullable: true
+        age:
+          type: integer
+          nullable: true
+        sex:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+        memberType:
+          $ref: '#/components/schemas/MemberType'
+      required:
+        - id
+        - name
+        - address
+        - birthday
+        - age
+        - sex
+        - memberType
+    User:
+      allOf:
+        - $ref: '#/components/schemas/UserBase'
+        - type: object
+          properties:
+            phoneNumber:
+              type: string
+              example: '09012345678'
+            email:
+              type: string
+              example: 'sample@example.com'
+              nullable: true
+          required:
+            - phoneNumber
+            - email
+    MemberType:
+      type: string
+      nullable: true
+      enum:
+        - GENERAL
+        - SPECIAL
+        - CHILD
+        - SENIOR
+    Trigger:
+      type: string
+      enum:
+        - HP
+        - INTRODUCTION
+        - TVCM
+        - HOTPEPPER
+        - FLYER
+        - NONE
+    GeneralError:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int
+        message:
+          type: string
+  parameters:
+    UserId:
+      name: userId
+      in: path
+      description: ユーザーID
+      required: true
+      schema:
+        type: string
+        example: 248c8027-b752-db4c-76c1-fb22a05e9591
+        nullable: false
+  examples:
+    GetUsersCommon:
+      value:
+      - id: 248c8027-b752-db4c-76c1-fb22a05e9591
+        name: 田中太郎
+        address: 東京都中央区新富1-16-4
+        birthday: "1990-01-01"
+        age: 33
+        sex: MALE
+        memberType: GENERAL
+      - id: a980e372-1eb2-0e1a-f23b-9208e226e954
+        name: 山田花子
+        address: 埼玉県さいたま市大宮区桜木町1-7-5
+        birthday: "1988-10-15"
+        age: 34
+        sex: FEMALE
+        memberType: SENIOR
+      - id: a9bbaab7-f596-712f-b4cf-c72a4323dff2
+        name: 山本次郎
+        address: 神奈川県横浜市中区横浜公園
+        birthday: null
+        age: null
+        sex: MALE
+        memberType: null
+    GetUserCommon:
+      value:
+        id: 248c8027-b752-db4c-76c1-fb22a05e9591
+        name: 田中太郎
+        address: 東京都中央区新富1-16-4
+        birthday: "1990-01-01"
+        age: 33
+        sex: MALE
+        phoneNumber: "09012345678"
+        email: taro@example.com
+    GetUserIncludeNullFields:
+      value:
+        id: a9bbaab7-f596-712f-b4cf-c72a4323dff2
+        name: 山本次郎
+        address: 神奈川県横浜市中区横浜公園
+        birthday: null
+        age: null
+        sex: MALE
+        phoneNumber: null
+        email: taro@example.com
+  responses:
+    GetUsers:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserBase'
+          examples:
+            GetUsersCommon:
+              $ref: '#/components/examples/GetUsersCommon'
+    GetUser:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+          examples:
+            GetUserCommon:
+              $ref: '#/components/examples/GetUserCommon'
+            GetUserIncludeNullFields:
+              $ref: '#/components/examples/GetUserIncludeNullFields'
+    NotFound:
+      description: Not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralError'
+    IllegalInput:
+      description: Illegal input for operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralError'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralError'
