@@ -52,8 +52,19 @@ import WelcomeItem from "./WelcomeItem.vue";
     <h1
       class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white"
     >
-      フロントエンド側で使用する技術(front/README.mdにも記載)
+      バックエンド側で使用する技術(front/README.mdにも記載)
     </h1>
+    <WelcomeItem
+      title="echo"
+      description="高性能、拡張性、ミニマリストの Go Web フレームワーク"
+      url="https://echo.labstack.com/"
+    />
+    <WelcomeItem
+      title="gorm"
+      description="デベロッパーフレンドリーを目指した、Go言語のORMライブラリ"
+      url="https://gorm.io/ja_JP/docs/index.html"
+    />
+
     <h1
       class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white"
     >
