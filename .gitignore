@@ -1,2 +1,2 @@
 db/mysql/data
-api/tmp
+api/tmp/*
