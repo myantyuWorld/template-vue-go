@@ -1,0 +1,61 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    // "allowImportingTsExtensions": true,
+    // | TODO: これが記載されていると、"npm run test/unit"でエラーになる
+    // | log
+    // root@6b0e1e988d85:/vue_ts# npm run test:unit
+
+    // > front@0.1.0 test:unit
+    // > vue-cli-service test:unit
+
+    // FAIL  tests/unit/example.spec.ts
+    //   ● Test suite failed to run
+
+    //     error TS5023: Unknown compiler option 'allowImportingTsExtensions'.
+
+    // Test Suites: 1 failed, 1 total
+    // Tests:       0 total
+    // Snapshots:   0 total
+    // Time:        9.425 s
+    // Ran all test suites.
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "types": [
+      "webpack-env",
+      "jest"
+    ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

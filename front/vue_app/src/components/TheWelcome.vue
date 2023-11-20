@@ -15,7 +15,7 @@ import WelcomeItem from "./WelcomeItem.vue";
       <p
         class="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"
       >
-        株式会社SORICHの研修にようこそ！このページは、自由に編集してもらってもいいです！
+        このページは、自由に編集してもらってもいいです！
       </p>
     </div>
     <hr class="m-8" />
@@ -68,12 +68,12 @@ import WelcomeItem from "./WelcomeItem.vue";
     <h1
       class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white"
     >
-      今回作成するToDoアプリのイメージはこちら
+      今回作成するテンプレートのサンプルとなるアプリのイメージはこちら
     </h1>
     <WelcomeItem
       title="Figma"
       description="ブラウザ上で簡単にデザインができるツールです。インターフェースのデザインを、場所を選ばずにブラウザさえ起動できれば使えるため、利便性が高くチーム体制での作業にも向いています。エンジニアは基本的にFigmaを使ってデザインするわけでなく、デザイナーの方のデザインをシステムに反映する際に確認しながら使います"
-      url="https://www.figma.com/file/rk3KO2peVvQvLWGlpxtySc/TODO-application?type=design&node-id=0%3A1&mode=design&t=i9eiDF8XGt7ZqIHx-1"
+      url="https://www.figma.com/file/dfbu8WdJyAu2kLq7vZXImr/AnimalsHealthcare?type=design&node-id=0-1&mode=design"
     />
   </div>
 </template>

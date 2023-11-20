@@ -1,5 +1,7 @@
 # traning-template
-研修テンプレート
+Vue, Goを使用したテンプレートリポジトリである
+ある程度要件を盛り込んだ上でテンプレートとして活用できる作りの方が、他に流用しやすいので、ペット管理システムの２、３画面を実装してテンプレートとして提示できる状態にする
+- [（Figma）ペット管理システム](https://www.figma.com/file/dfbu8WdJyAu2kLq7vZXImr/AnimalsHealthcare?type=design&node-id=0-1&mode=design&t=8jDIjghzEzT56Qx8-0)
 
 ## 使用言語・フレームワーク
 front, apiの`README.md`参照
