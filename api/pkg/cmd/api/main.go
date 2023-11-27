@@ -10,6 +10,30 @@ import (
 )
 
 // Go言語：文法基礎まとめ | https://qiita.com/HiromuMasuda0228/items/65b9a593275f769f6b69
+// --- 今すぐ「レイヤードアーキテクチャ+DDD」を理解しよう。（golang）| https://qiita.com/tono-maron/items/345c433b86f74d314c8d
+// --- 若干理解が浅いため、実例が欲しいので、上記記事を参考に実装してみた。実装後、理解が深まるはずなので、サンプルを改めて目を通してみる
+// |
+// LayeredArchitecture
+// ├── cmd
+// │   └── api
+// │       └── main.go
+// ├── domain
+// │   └── repository
+// |   |   └── user_repository.go
+// |   └── user.go
+// ├── config //DBの起動など
+// │   └── database.go
+// ├── interfaces
+// │   └── handler
+// │   |   └── user.go
+// |   └── response
+// │       └── response.go
+// ├── infrastructure
+// │   └── persistence
+// │       └── user.go
+// └── usecase
+//	   └── user.go
+
 func main() {
 	user := os.Getenv("MYSQL_USER")
 	pass := os.Getenv("MYSQL_PASSWORD")

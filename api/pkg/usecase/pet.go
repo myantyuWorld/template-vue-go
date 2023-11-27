@@ -1,10 +1,10 @@
-package repository
+package usecase
 
 import (
 	"api/pkg/domain/model"
 	"context"
 )
 
-type PetSummary interface {
+type PetUsecase interface {
 	Get(ctx context.Context, petId uint64) (*model.PetSummary, error)
 }
