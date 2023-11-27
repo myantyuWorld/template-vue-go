@@ -1,6 +1,7 @@
 package main
 
 import (
+	"api/pkg/cmd/api/app"
 	"api/pkg/infrastructure/repository"
 	"log"
 	"os"
@@ -17,6 +18,9 @@ func main() {
 
 	dbCfg := repository.NewMySQLConfig(host, 3306, dbname, user, pass)
 	db, err := repository.ConnRDB(dbCfg)
+
+	container := app.Inject(db)
+
 	//
 	// [参考]log.Fatalなどは、main.goなどプログラムエントリーでのみ使用する
 	//
@@ -28,7 +32,6 @@ func main() {
 		log.Fatal(err)
 	}
 	e := echo.New()
-
 	log.Printf("db :: %#v\n", db)
 
 	e.Logger.Fatal(e.Start(":8080"))
