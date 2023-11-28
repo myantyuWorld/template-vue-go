@@ -1,8 +1,10 @@
 package main
 
 import (
-	"api/pkg/cmd/api/app"
-	"api/pkg/infrastructure/repository"
+	"api/pkg/infrastructure"
+	"api/pkg/infrastructure/persistence"
+	"api/pkg/interfaces/handler"
+	"api/pkg/usecase"
 	"log"
 	"os"
 
@@ -40,11 +42,12 @@ func main() {
 	host := os.Getenv("MYSQL_HOST")
 	dbname := os.Getenv("MYSQL_DATABASE")
 
-	dbCfg := repository.NewMySQLConfig(host, 3306, dbname, user, pass)
-	db, err := repository.ConnRDB(dbCfg)
+	dbCfg := infrastructure.NewMySQLConfig(host, 3306, dbname, user, pass)
+	db, err := infrastructure.ConnRDB(dbCfg)
 
-	container := app.Inject(db)
-
+	petPersistence := persistence.NewPetPersistence()
+	petUseCase := usecase.NewPetUseCase(petPersistence)
+	petHandler := handler.NewPetHandler(petUseCase, *db)
 	//
 	// [参考]log.Fatalなどは、main.goなどプログラムエントリーでのみ使用する
 	//
@@ -55,8 +58,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	e := echo.New()
 	log.Printf("db :: %#v\n", db)
+
+	e := echo.New()
+	e.GET("/pet", petHandler.HandlePetGet())
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
