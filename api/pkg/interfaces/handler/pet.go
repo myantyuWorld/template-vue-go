@@ -25,6 +25,8 @@ func (ph petHandler) HandlePetGet() echo.HandlerFunc {
 		var err error
 
 		if pet, err = ph.petUsecase.Get(&ph.db, 1); err != nil {
+			log.Println("handler error")
+			log.Println(err)
 			return c.JSON(500, err)
 			// return c.JSON(500, response.Error(c.Response().Writer, http.StatusInternalServerError, err, "internal server error"))
 		}

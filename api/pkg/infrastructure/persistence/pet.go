@@ -1,9 +1,11 @@
 package persistence
 
 import (
-	"api/pkg/domain/model"
 	"api/pkg/domain/repository"
 	"api/pkg/infrastructure"
+	dbmodel "api/pkg/infrastructure/model"
+	"errors"
+	"log"
 )
 
 // infrastructure層は、DBアクセスなどの技術的関心を記述します。
@@ -13,8 +15,17 @@ import (
 type petPersistence struct{}
 
 // Get implements repository.PetRepository.
-func (*petPersistence) Get(db *infrastructure.RDB, petId uint64) (*model.PetSummary, error) {
-	panic("unimplemented")
+func (*petPersistence) Get(db *infrastructure.RDB, petId uint64) (*dbmodel.Pets, error) {
+	log.Println("infrastcucture#pet.go#Get")
+	log.Print(db)
+
+	var pets dbmodel.Pets
+	result := db.Find(&pets, petId)
+	if result.RowsAffected == 0 {
+		return nil, errors.New("検索できませんでした")
+	}
+
+	return &pets, nil
 }
 
 func NewPetPersistence() repository.PetRepository {
