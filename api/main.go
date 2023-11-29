@@ -44,10 +44,6 @@ func main() {
 
 	dbCfg := infrastructure.NewMySQLConfig(host, 3306, dbname, user, pass)
 	db, err := infrastructure.ConnRDB(dbCfg)
-
-	petPersistence := persistence.NewPetPersistence()
-	petUseCase := usecase.NewPetUseCase(petPersistence)
-	petHandler := handler.NewPetHandler(petUseCase, *db)
 	//
 	// [参考]log.Fatalなどは、main.goなどプログラムエントリーでのみ使用する
 	//
@@ -59,6 +55,10 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Printf("db :: %#v\n", db)
+
+	petPersistence := persistence.NewPetPersistence()
+	petUseCase := usecase.NewPetUseCase(petPersistence)
+	petHandler := handler.NewPetHandler(petUseCase, *db)
 
 	e := echo.New()
 	e.GET("/pet", petHandler.HandlePetGet())

@@ -34,6 +34,7 @@ func (ph petHandler) HandlePetGet() echo.HandlerFunc {
 }
 
 func NewPetHandler(pu usecase.PetUseCase, db infrastructure.RDB) PetHandler {
+	log.Print("NewPetHandler")
 	return &petHandler{
 		petUsecase: pu,
 		db:         db,

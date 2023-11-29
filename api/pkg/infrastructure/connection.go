@@ -2,6 +2,7 @@ package infrastructure
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	driver "github.com/go-sql-driver/mysql"
@@ -60,12 +61,14 @@ type mySQLConfig struct {
 
 func (cfg *mySQLConfig) Dialector() gorm.Dialector {
 	driverConfig := &driver.Config{
-		User:   cfg.User,
-		Passwd: cfg.Password,
-		Net:    "tcp",
-		Addr:   fmt.Sprintf("%s:%d", cfg.Host, cfg.Port),
-		DBName: cfg.Database,
+		User:                 cfg.User,
+		Passwd:               cfg.Password,
+		Net:                  "tcp",
+		Addr:                 fmt.Sprintf("%s:%d", cfg.Host, cfg.Port),
+		DBName:               cfg.Database,
+		AllowNativePasswords: true,
 	}
+	log.Println(driverConfig.FormatDSN())
 	return mysql.Open(driverConfig.FormatDSN())
 }
 
