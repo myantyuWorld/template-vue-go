@@ -34,6 +34,24 @@ CREATE TABLE IF NOT EXISTS `schedules` (
 ENGINE = InnoDB
 COMMENT = '予定';
 
+CREATE TABLE IF NOT EXISTS `conditions` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `pet_id` BIGINT NOT NULL COMMENT 'ペットID',
+  `food` BIGINT NULL COMMENT '食事の調子',
+  `sweat` BIGINT NULL COMMENT '汗の調子',
+  `toilet` BIGINT NULL COMMENT '排泄の調子',
+  `created_at` DATETIME NOT NULL COMMENT '作成日時',
+  `updated_at` DATETIME NOT NULL COMMENT '更新日時',
+  PRIMARY KEY (`id`, `pet_id`),
+  CONSTRAINT `fk_schedule1`
+    FOREIGN KEY (`pet_id`)
+    REFERENCES `pets` (`id`)
+    -- ON DELETE CASCADE
+    -- ON UPDATE NO ACTION
+  )
+ENGINE = InnoDB
+COMMENT = '体調履歴';
+
 
 -- +migrate Down
 DROP TABLE `schedules`;

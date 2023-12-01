@@ -10,11 +10,23 @@ import (
 
 type PetHandler interface {
 	HandlePetGet() echo.HandlerFunc
+	HandleScheduleGet() echo.HandlerFunc
+	HandleSchedulePost() echo.HandlerFunc
 }
 
 type petHandler struct {
 	petUsecase usecase.PetUseCase
 	db         infrastructure.RDB
+}
+
+// HandleScheduleGet implements PetHandler.
+func (handler *petHandler) HandleScheduleGet() echo.HandlerFunc {
+	panic("unimplemented")
+}
+
+// HandleSchedulePost implements PetHandler.
+func (handler *petHandler) HandleSchedulePost() echo.HandlerFunc {
+	panic("unimplemented")
 }
 
 // HandlePetGet implements PetHandler.
@@ -24,7 +36,7 @@ func (ph petHandler) HandlePetGet() echo.HandlerFunc {
 		var pet interface{}
 		var err error
 
-		if pet, err = ph.petUsecase.Get(&ph.db, 1); err != nil {
+		if pet, err = ph.petUsecase.GetPetSummary(&ph.db, 1); err != nil {
 			log.Println("handler error")
 			log.Println(err)
 			return c.JSON(500, err)
