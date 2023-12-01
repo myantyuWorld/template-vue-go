@@ -1,5 +1,8 @@
 package main
 
+// Goでモックを作成してテストをする | https://qiita.com/S-Masakatsu/items/2bc751df9583657181e9
+// go generate でモックを生成する | https://christina04.hatenablog.com/entry/use-go-generate-when-generating-mock
+
 import (
 	"api/pkg/infrastructure"
 	"api/pkg/infrastructure/persistence"
