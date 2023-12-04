@@ -19,11 +19,14 @@ import "time"
 //
 //	(1, "なつ", now(), 1, 4000, 5000, now(), now());
 type Pets struct {
-	ID        uint64
-	Name      string
-	BirthDay  time.Time
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID           uint64
+	Name         string
+	Sex          uint64
+	BirthDay     time.Time
+	NowWeight    uint64
+	TargetWeight uint64
+	CreatedAt    time.Time
+	UpdatedAt    time.Time
 }
 
 func (mdl *Pets) TableName() string {

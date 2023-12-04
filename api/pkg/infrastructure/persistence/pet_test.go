@@ -4,6 +4,7 @@ import (
 	"api/pkg/infrastructure"
 	"api/pkg/infrastructure/persistence"
 	"errors"
+	"fmt"
 	"log"
 	"os"
 	"testing"
@@ -30,11 +31,18 @@ func TestGet_PetIdで検索できない場合(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	output, err := persistence.NewPetPersistence().Get(db, 1)
+	output, err := persistence.NewPetPersistence().Get(db, 999)
 	log.Print(output)
 	require.Equal(t, errors.New("検索できませんでした"), err)
 }
 
 func TestGet_Petの属性が正しく検索できている(t *testing.T) {
-	// TBD
+	db, err := OpenDb()
+	output, err := persistence.NewPetPersistence().Get(db, 1)
+
+	log.Println(fmt.Printf("%v\n", output))
+	require.NoError(t, err)
+	require.Equal(t, uint64(1), output.ID)
+	require.Equal(t, "natsu", output.Name)
+	require.Equal(t, uint64(4000), output.NowWeight)
 }
