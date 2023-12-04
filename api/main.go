@@ -2,6 +2,8 @@ package main
 
 // Goでモックを作成してテストをする | https://qiita.com/S-Masakatsu/items/2bc751df9583657181e9
 // go generate でモックを生成する | https://christina04.hatenablog.com/entry/use-go-generate-when-generating-mock
+//　以下をリポジトリなどに書く。| go:generate mockgen -source=$GOFILE -package=mock_$GOPACKAGE -destination=../../mock/$GOPACKAGE/$GOFILE
+// プロジェクト直下で「go generate ./...」
 
 import (
 	"api/pkg/infrastructure"
