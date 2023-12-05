@@ -75,7 +75,7 @@ func (m *MockScheduleRepository) Post(db *infrastructure.RDB, petId uint64, sche
 }
 
 // Post indicates an expected call of Post.
-func (mr *MockScheduleRepositoryMockRecorder) Post(db *infrastructure.RDB, petId uint64, schedule *dbmodel.Schedules) *gomock.Call {
+func (mr *MockScheduleRepositoryMockRecorder) Post(db ,petId , schedule interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Post", reflect.TypeOf((*MockScheduleRepository)(nil).Post), db, petId, schedule)
 }
