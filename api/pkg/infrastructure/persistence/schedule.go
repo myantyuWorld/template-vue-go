@@ -11,7 +11,7 @@ import (
 type schedulePersistence struct{}
 
 // FIndNewest implements repository.ScheduleRepository.
-func (*schedulePersistence) FIndNewest(db *infrastructure.RDB, petId uint64) (*dbmodel.Schedules, error) {
+func (*schedulePersistence) FindNewest(db *infrastructure.RDB, petId uint64) (*dbmodel.Schedules, error) {
 	log.Println("infrastructure#persistence#schedule.go#FindNewest")
 
 	var schedule *dbmodel.Schedules

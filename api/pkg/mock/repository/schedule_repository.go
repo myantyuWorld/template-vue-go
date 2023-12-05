@@ -35,19 +35,19 @@ func (m *MockScheduleRepository) EXPECT() *MockScheduleRepositoryMockRecorder {
 	return m.recorder
 }
 
-// FIndNewest mocks base method.
-func (m *MockScheduleRepository) FIndNewest(db *infrastructure.RDB, petId uint64) (*dbmodel.Schedules, error) {
+// FindNewest mocks base method.
+func (m *MockScheduleRepository) FindNewest(db *infrastructure.RDB, petId uint64) (*dbmodel.Schedules, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "FIndNewest", db, petId)
+	ret := m.ctrl.Call(m, "FindNewest", db, petId)
 	ret0, _ := ret[0].(*dbmodel.Schedules)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// FIndNewest indicates an expected call of FIndNewest.
-func (mr *MockScheduleRepositoryMockRecorder) FIndNewest(db, petId interface{}) *gomock.Call {
+// FindNewest indicates an expected call of FindNewest.
+func (mr *MockScheduleRepositoryMockRecorder) FindNewest(db, petId interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FIndNewest", reflect.TypeOf((*MockScheduleRepository)(nil).FIndNewest), db, petId)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindNewest", reflect.TypeOf((*MockScheduleRepository)(nil).FindNewest), db, petId)
 }
 
 // Finds mocks base method.
@@ -75,7 +75,7 @@ func (m *MockScheduleRepository) Post(db *infrastructure.RDB, petId uint64, sche
 }
 
 // Post indicates an expected call of Post.
-func (mr *MockScheduleRepositoryMockRecorder) Post(db ,petId , schedule interface{}) *gomock.Call {
+func (mr *MockScheduleRepositoryMockRecorder) Post(db, petId, schedule interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Post", reflect.TypeOf((*MockScheduleRepository)(nil).Post), db, petId, schedule)
 }

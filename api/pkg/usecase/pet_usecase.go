@@ -27,7 +27,7 @@ func (pu *petUseCase) GetPetSummary(db *infrastructure.RDB, petId uint64) (*mode
 		return nil, err
 	}
 	// 最新のスケジュールを取得
-	schedule, err := pu.scueduleRepository.FIndNewest(db, petId)
+	schedule, err := pu.scueduleRepository.FindNewest(db, petId)
 	if err != nil {
 		// 登録がないことを示すものをPetSummaryに設定
 	} else {
