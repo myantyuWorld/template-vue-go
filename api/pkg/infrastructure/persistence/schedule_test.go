@@ -90,3 +90,31 @@ func TestFindNewest_Ok(t *testing.T) {
 	output, err := persistence.NewConditionPersistence().FindNewest(db, 1)
 	require.Equal(t, &_mockSchedule, output)
 }
+
+func TestFinds_Ng(t *testing.T) {
+	db, err := OpenDb()
+	if err != nil {
+		log.Fatal(err)
+	}
+	output, err := persistence.NewConditionPersistence().Finds(db, 1)
+	log.Print(output)
+	require.Equal(t, errors.New("検索できませんでした"), output)
+}
+
+func TestFinds_Ok(t *testing.T) {
+	db, err := OpenDb()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockRepo := mock_repository.NewMockScheduleRepository(ctrl)
+	var _mockSchedule dbmodel.Schedules
+	mockRepo.EXPECT().Finds(db, 1).Return(&_mockSchedule, nil)
+	mockRepo.Finds(db, 1)
+
+	output, err := persistence.NewConditionPersistence().Finds(db, 1)
+	require.Equal(t, &_mockSchedule, output)
+}
