@@ -12,8 +12,18 @@ type schedulePersistence struct{}
 
 // FIndNewest implements repository.ScheduleRepository.
 func (*schedulePersistence) FIndNewest(db *infrastructure.RDB, petId uint64) (*dbmodel.Schedules, error) {
-	log.Println("infrastructure#persistence#schedule.go#")
-	panic("unimplemented")
+	log.Println("infrastructure#persistence#schedule.go#FindNewest")
+
+	var schedule dbmodel.Schedules
+	result := db.
+		Order("id desc").
+		Where("pet_id = ?", petId).
+		First(&schedule)
+	if result.RowsAffected == 0 {
+		return nil, errors.New("検索できませんでした")
+	}
+
+	return &schedule, nil
 }
 
 // Finds implements repository.ScheduleRepository.

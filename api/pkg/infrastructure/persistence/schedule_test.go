@@ -62,3 +62,31 @@ func TestPost_正常系(t *testing.T) {
 	output, err := persistence.NewSchedulePersistence().Post(db, 1, &_mockSchedule)
 	require.Equal(t, &_mockSchedule, output)
 }
+
+func TestFindNewest_NG(t *testing.T) {
+	db, err := OpenDb()
+	if err != nil {
+		log.Fatal(err)
+	}
+	output, err := persistence.NewConditionPersistence().FindNewest(db, 1)
+	log.Print(output)
+	require.Equal(t, errors.New("検索できませんでした"), output)
+}
+
+func TestFindNewest_Ok(t *testing.T) {
+	db, err := OpenDb()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockRepo := mock_repository.NewMockScheduleRepository(ctrl)
+	var _mockSchedule dbmodel.Schedules
+	mockRepo.EXPECT().FIndNewest(db, 1).Return(&_mockSchedule, nil)
+	mockRepo.FIndNewest(db, 1)
+
+	output, err := persistence.NewConditionPersistence().FindNewest(db, 1)
+	require.Equal(t, &_mockSchedule, output)
+}
