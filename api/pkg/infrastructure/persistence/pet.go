@@ -16,7 +16,7 @@ type petPersistence struct{}
 
 // Get implements repository.PetRepository.
 func (*petPersistence) Get(db *infrastructure.RDB, petId uint64) (*dbmodel.Pets, error) {
-	log.Println("infrastcucture#pet.go#Get")
+	log.Println("infrastcucture#persistence#pet.go#Get")
 	log.Print(db)
 
 	var pets dbmodel.Pets
