@@ -5,15 +5,12 @@ import (
 	"api/pkg/infrastructure"
 	dbmodel "api/pkg/infrastructure/model"
 	"errors"
-	"log"
 )
 
 type schedulePersistence struct{}
 
 // FIndNewest implements repository.ScheduleRepository.
 func (*schedulePersistence) FindNewest(db *infrastructure.RDB, petId uint64) (*dbmodel.Schedules, error) {
-	log.Println("infrastructure#persistence#schedule.go#FindNewest")
-
 	var schedule *dbmodel.Schedules
 	result := db.
 		Order("id desc").
@@ -28,8 +25,6 @@ func (*schedulePersistence) FindNewest(db *infrastructure.RDB, petId uint64) (*d
 
 // Finds implements repository.ScheduleRepository.
 func (*schedulePersistence) Finds(db *infrastructure.RDB, petId uint64) ([]*dbmodel.Schedules, error) {
-	log.Println("infrastructure#persistence#schedule.go#Finds")
-
 	var schedules []*dbmodel.Schedules
 	result := db.
 		Where("pet_id = ?", petId).
@@ -43,8 +38,6 @@ func (*schedulePersistence) Finds(db *infrastructure.RDB, petId uint64) ([]*dbmo
 
 // Post implements repository.ScheduleRepository.
 func (*schedulePersistence) Post(db *infrastructure.RDB, petId uint64, schedule *dbmodel.Schedules) (*dbmodel.Schedules, error) {
-	log.Println("infrastructure#persistence#schedule.go#")
-
 	schedule.PetId = petId
 	result := db.Create(schedule)
 	if result.Error != nil {

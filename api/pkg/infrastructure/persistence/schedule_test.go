@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestPost(t *testing.T) {
+func TestSchedulePost(t *testing.T) {
 	db, err := OpenDb()
 	if err != nil {
 		log.Fatal(err)
@@ -24,15 +24,13 @@ func TestPost(t *testing.T) {
 
 		_time := time.Now()
 		_mockSchedule := dbmodel.Schedules{
-			PetId:     uint64(1),
 			Title:     "ホゲホゲ", // 現状、Mysqlの設定が至らなく、日本語をinsertしようとした時にエラーとなる、それを利用してみる
 			Date:      _time,
 			Location:  "fugafuga",
 			CreatedAt: _time,
 			UpdatedAt: _time,
 		}
-		output, err := persistence.NewSchedulePersistence().Post(db, uint64(1), &_mockSchedule)
-		log.Print(output)
+		_, err := persistence.NewSchedulePersistence().Post(db, uint64(1), &_mockSchedule)
 		require.Equal(t, errors.New("スケジュールを追加できませんでした"), err)
 	})
 	t.Run("正常系", func(t *testing.T) {
@@ -59,14 +57,13 @@ func TestPost(t *testing.T) {
 	})
 }
 
-func TestFindNewest(t *testing.T) {
+func TestScheduleFindNewest(t *testing.T) {
 	db, err := OpenDb()
 	if err != nil {
 		log.Fatal(err)
 	}
 	t.Run("異常系", func(t *testing.T) {
-		output, err := persistence.NewSchedulePersistence().FindNewest(db, uint64(99))
-		log.Print(output)
+		_, err := persistence.NewSchedulePersistence().FindNewest(db, uint64(99))
 		require.Equal(t, errors.New("検索できませんでした"), err)
 	})
 	t.Run("正常系", func(t *testing.T) {
@@ -83,14 +80,13 @@ func TestFindNewest(t *testing.T) {
 	})
 }
 
-func TestFinds(t *testing.T) {
+func TestScheduleFinds(t *testing.T) {
 	db, err := OpenDb()
 	if err != nil {
 		log.Fatal(err)
 	}
 	t.Run("異常系", func(t *testing.T) {
-		output, err := persistence.NewSchedulePersistence().Finds(db, uint64(99))
-		log.Print(output)
+		_, err := persistence.NewSchedulePersistence().Finds(db, uint64(99))
 		require.Equal(t, errors.New("検索できませんでした"), err)
 	})
 	t.Run("正常系", func(t *testing.T) {

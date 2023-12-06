@@ -32,7 +32,6 @@ func (handler *petHandler) HandleSchedulePost() echo.HandlerFunc {
 // HandlePetGet implements PetHandler.
 func (ph petHandler) HandlePetGet() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		log.Print("aaa")
 		var pet interface{}
 		var err error
 

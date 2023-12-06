@@ -4,7 +4,6 @@ import (
 	"api/pkg/infrastructure"
 	"api/pkg/infrastructure/persistence"
 	"errors"
-	"fmt"
 	"log"
 	"os"
 	"testing"
@@ -39,8 +38,6 @@ func TestGet_PetIdで検索できない場合(t *testing.T) {
 func TestGet_Petの属性が正しく検索できている(t *testing.T) {
 	db, err := OpenDb()
 	output, err := persistence.NewPetPersistence().Get(db, 1)
-
-	log.Println(fmt.Printf("%v\n", output))
 	require.NoError(t, err)
 	require.Equal(t, uint64(1), output.ID)
 	require.Equal(t, "natsu", output.Name)
