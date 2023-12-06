@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `conditions` (
   `created_at` DATETIME NOT NULL COMMENT '作成日時',
   `updated_at` DATETIME NOT NULL COMMENT '更新日時',
   PRIMARY KEY (`id`, `pet_id`),
-  CONSTRAINT `fk_schedule1`
+  CONSTRAINT `fk_condition1`
     FOREIGN KEY (`pet_id`)
     REFERENCES `pets` (`id`)
     -- ON DELETE CASCADE
@@ -56,4 +56,5 @@ COMMENT = '体調履歴';
 -- +migrate Down
 DROP TABLE `schedules`;
 DROP TABLE `pets`;
+DROP TABLE `conditions`;
 
