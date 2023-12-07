@@ -8,7 +8,7 @@ import (
 type Pet struct {
 	ID       uint64
 	Name     string
-	Sex      string
+	Sex      PetSex
 	Weight   float64
 	Birthday time.Time
 }
@@ -25,9 +25,9 @@ type PetSex interface {
 
 func NewPetSex(s string) (PetSex, error) {
 	switch s {
-	case maleSex.String():
+	case "1":
 		return maleSex, nil
-	case femaleSex.String():
+	case "2":
 		return femaleSex, nil
 	default:
 		return nil, errors.New("invalid pet sex")
@@ -142,6 +142,6 @@ type ScheduledEvent struct {
 type PetSummary struct {
 	Detail    *Pet
 	Status    *PetStatus
-	Memo      []*PetMemo
-	Schedules []*ScheduledEvent
+	Memo      *PetMemo
+	Schedules *ScheduledEvent
 }

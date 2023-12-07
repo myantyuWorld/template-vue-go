@@ -61,8 +61,11 @@ func main() {
 	}
 	log.Printf("db :: %#v\n", db)
 
-	petPersistence := persistence.NewPetPersistence()
-	petUseCase := usecase.NewPetUseCase(petPersistence)
+	petUseCase := usecase.NewPetUseCase(
+		persistence.NewPetPersistence(),
+		persistence.NewSchedulePersistence(),
+		persistence.NewConditionPersistence(),
+	)
 	petHandler := handler.NewPetHandler(petUseCase, *db)
 
 	e := echo.New()
