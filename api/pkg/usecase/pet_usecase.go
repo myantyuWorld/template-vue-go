@@ -97,6 +97,8 @@ func NewPetUseCase(
 	cr repository.ConditionRepository,
 ) PetUseCase {
 	return &petUseCase{
-		petRepository: pr,
+		petRepository:       pr,
+		scueduleRepository:  sr,
+		conditionRepository: cr,
 	}
 }
