@@ -8,24 +8,13 @@ import (
 	"api/pkg/usecase"
 	"fmt"
 	"log"
-	"os"
 	"testing"
 
 	"github.com/golang/mock/gomock"
 )
 
-func OpenDb() (*infrastructure.RDB, error) {
-	user := os.Getenv("MYSQL_USER")
-	pass := os.Getenv("MYSQL_PASSWORD")
-	host := os.Getenv("MYSQL_HOST")
-	dbname := os.Getenv("MYSQL_DATABASE")
-	dbCfg := infrastructure.NewMySQLConfig(host, 3306, dbname, user, pass)
-	db, err := infrastructure.ConnRDB(dbCfg)
-
-	return db, err
-}
 func TestPetUsecaseGetPetSummary(t *testing.T) {
-	db, err := OpenDb()
+	db, err := infrastructure.ConnRDB()
 	if err != nil {
 		log.Fatal(err)
 	}

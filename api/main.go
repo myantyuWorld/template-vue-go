@@ -11,7 +11,6 @@ import (
 	"api/pkg/interfaces/handler"
 	"api/pkg/usecase"
 	"log"
-	"os"
 
 	"github.com/labstack/echo/v4"
 )
@@ -42,13 +41,7 @@ import (
 //	   └── user.go
 
 func main() {
-	user := os.Getenv("MYSQL_USER")
-	pass := os.Getenv("MYSQL_PASSWORD")
-	host := os.Getenv("MYSQL_HOST")
-	dbname := os.Getenv("MYSQL_DATABASE")
-
-	dbCfg := infrastructure.NewMySQLConfig(host, 3306, dbname, user, pass)
-	db, err := infrastructure.ConnRDB(dbCfg)
+	db, err := infrastructure.ConnRDB()
 	//
 	// [参考]log.Fatalなどは、main.goなどプログラムエントリーでのみ使用する
 	//

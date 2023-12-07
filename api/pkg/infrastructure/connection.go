@@ -2,6 +2,7 @@ package infrastructure
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	driver "github.com/go-sql-driver/mysql"
@@ -13,7 +14,13 @@ type RDB struct {
 	*gorm.DB
 }
 
-func ConnRDB(cfg DBConfig) (*RDB, error) {
+func ConnRDB() (*RDB, error) {
+	user := os.Getenv("MYSQL_USER")
+	pass := os.Getenv("MYSQL_PASSWORD")
+	host := os.Getenv("MYSQL_HOST")
+	dbname := os.Getenv("MYSQL_DATABASE")
+
+	cfg := NewMySQLConfig(host, 3306, dbname, user, pass)
 	db, err := gorm.Open(cfg.Dialector(), &gorm.Config{})
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect rdb: %w", err)

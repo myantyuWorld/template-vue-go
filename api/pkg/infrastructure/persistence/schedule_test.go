@@ -1,6 +1,7 @@
 package persistence_test
 
 import (
+	"api/pkg/infrastructure"
 	dbmodel "api/pkg/infrastructure/model"
 	"api/pkg/infrastructure/persistence"
 	mock_repository "api/pkg/mock/repository"
@@ -14,7 +15,7 @@ import (
 )
 
 func TestSchedulePost(t *testing.T) {
-	db, err := OpenDb()
+	db, err := infrastructure.ConnRDB()
 	if err != nil {
 		log.Fatal(err)
 	}
