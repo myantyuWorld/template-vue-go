@@ -6,11 +6,11 @@ import (
 )
 
 type Pet struct {
-	ID       uint64
-	Name     string
-	Sex      PetSex
-	Weight   float64
-	Birthday time.Time
+	ID       uint64    `json:"id"`
+	Name     string    `json:"name"`
+	Sex      PetSex    `json:"sex"`
+	Weight   float64   `json:"weight"`
+	Birthday time.Time `json:"birthday"`
 }
 
 // (Qiita) Goのinterfaceがわからない人へ | https://qiita.com/rtok/items/46eadbf7b0b7a1b0eb08
@@ -127,21 +127,21 @@ func (conditionPoor) Value() string {
 }
 
 type PetMemo struct {
-	ID        uint64
-	Title     string
-	Timestamp time.Time
+	ID        uint64    `json:"id"`
+	Title     string    `json:"title"`
+	Timestamp time.Time `json:"timestamp"`
 }
 
 type ScheduledEvent struct {
-	ID        uint64
-	Title     string
-	Location  string
-	Timestamp time.Time
+	ID        uint64    `json:"id"`
+	Title     string    `json:"title"`
+	Location  string    `json:"location"`
+	Timestamp time.Time `json:"timestamp"`
 }
 
 type PetSummary struct {
-	Detail    *Pet
-	Status    *PetStatus
-	Memo      *PetMemo
-	Schedules *ScheduledEvent
+	Detail    *Pet            `json:"detail"`
+	Status    *PetStatus      `json:"status"`
+	Memo      *PetMemo        `json:"memo"`
+	Schedules *ScheduledEvent `json:"schedules"`
 }

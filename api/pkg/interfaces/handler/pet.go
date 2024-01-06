@@ -4,6 +4,7 @@ import (
 	"api/pkg/infrastructure"
 	"api/pkg/usecase"
 	"log"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -35,7 +36,13 @@ func (ph petHandler) HandlePetGet() echo.HandlerFunc {
 		var pet interface{}
 		var err error
 
-		if pet, err = ph.petUsecase.GetPetSummary(&ph.db, 1); err != nil {
+		petId, err := strconv.ParseInt(c.Param("id"), 10, 64)
+		if err != nil {
+			log.Println("parse error")
+			return c.JSON(400, err)
+		}
+
+		if pet, err = ph.petUsecase.GetPetSummary(&ph.db, uint64(petId)); err != nil {
 			log.Println("handler error")
 			log.Println(err)
 			return c.JSON(500, err)

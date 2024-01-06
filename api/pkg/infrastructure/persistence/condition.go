@@ -21,7 +21,16 @@ func (*conditionPersistence) Post(db *infrastructure.RDB, petId uint64, conditio
 
 // FindNewest implements repository.ConditionRepository.
 func (*conditionPersistence) FindNewest(db *infrastructure.RDB, petId uint64) (*dbmodel.Conditions, error) {
-	panic("unimplemented")
+	var confition *dbmodel.Conditions
+	result := db.
+		Order("id desc").
+		Where("pet_id = ?", petId).
+		First(&confition)
+	if result.RowsAffected == 0 {
+		return nil, errors.New("検索できませんでした")
+	}
+
+	return confition, nil
 }
 
 // Finds implements repository.ConditionRepository.

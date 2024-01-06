@@ -62,7 +62,7 @@ func main() {
 	petHandler := handler.NewPetHandler(petUseCase, *db)
 
 	e := echo.New()
-	e.GET("/pet", petHandler.HandlePetGet())
+	e.GET("/pet/:id", petHandler.HandlePetGet())
 
 	e.Logger.Fatal(e.Start(":8080"))
 }

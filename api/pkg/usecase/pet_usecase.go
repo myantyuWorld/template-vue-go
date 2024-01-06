@@ -62,7 +62,6 @@ func (pu *petUseCase) GetPetSummary(db *infrastructure.RDB, petId uint64) (*mode
 		log.Println(fmt.Printf("%#v", condition))
 	}
 
-	// TODO: dbModelのPetと、レスポンス用のpetSummaryの変換(Interface層に渡す際の処理)
 	log.Println(fmt.Printf("%#v", pet))
 
 	return &petSummary, nil
